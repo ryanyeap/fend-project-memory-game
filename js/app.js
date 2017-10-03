@@ -10,6 +10,21 @@
  *   - add each card's HTML to the page
  */
 
+ // Create Grid of cards (16 cards)
+var card_list = ["paper-plane-o", "paper-plane-o", "diamond", "diamond", "anchor", "anchor", "bolt", "bolt", "cube", "cube",
+             "leaf", "leaf", "bicycle", "bicycle", "bomb", "bomb"],
+    $deck = jQuery('.deck');
+
+function startGame() {
+    // create a deck.
+    // use function shuffle on cards.
+    var cards = shuffle(card_list);
+    // create deck as html
+    for (var i = 0; i < cards.length; i++) {
+        $deck.append($('<li class="card"><i class="fa fa-' + cards[i] + '"></i></li>'));
+    }
+}
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -25,6 +40,8 @@ function shuffle(array) {
     return array;
 }
 
+// Start the game!
+startGame();
 
 /*
  * set up the event listener for a card. If a card is clicked:
