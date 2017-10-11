@@ -14,14 +14,14 @@ To run the game, load index.html
 
 Functions included:
 
-- Moves
+- Moves: 
   Shows the number of attempts on matching a pair of cards.
-- Stars
+- Stars: 
   Shows the star quality. (relative to number of moves taken)
-- Timer
+- Timer: 
   Shows the timer start time from the first click of the cards.
-- Reset
+- Reset: 
   Resets the game.
 
-SweetAlert2 - https://limonte.github.io/sweetalert2/
+SweetAlert2 - https://limonte.github.io/sweetalert2/, 
 animate css - https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css
