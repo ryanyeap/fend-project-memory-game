@@ -7,14 +7,21 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+To run the game, load index.html
 
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+Functions included:
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+- Moves
+  Shows the number of attempts on matching a pair of cards.
+- Stars
+  Shows the star quality. (relative to number of moves taken)
+- Timer
+  Shows the timer start time from the first click of the cards.
+- Reset
+  Resets the game.
+
+SweetAlert2 - https://limonte.github.io/sweetalert2/
+animate css - https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css
