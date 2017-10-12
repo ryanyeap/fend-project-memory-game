@@ -1,11 +1,10 @@
 // Create Grid of cards (16 cards)
-var card_list = ["paper-plane-o", "paper-plane-o", "diamond", "diamond", "anchor", "anchor", "bolt", "bolt", "cube", "cube",
-             "leaf", "leaf", "bicycle", "bicycle", "bomb", "bomb"],
+let card_list = ["paper-plane-o", "paper-plane-o", "diamond", "diamond", "anchor", "anchor", "bolt", "bolt", "cube", "cube",
+                "leaf", "leaf", "bicycle", "bicycle", "bomb", "bomb"],
     $deck = jQuery('.deck'),
     opened = [],
     match = 0,
     moves = 0,
-    // $scorePanel = $('#score-panel'),
     $moveNum = $('.moves'),
     $ratingStars = $('i'),
     $restart = $('.restart'),
@@ -14,7 +13,7 @@ var card_list = ["paper-plane-o", "paper-plane-o", "diamond", "diamond", "anchor
     rank3stars = gameCardsQTY + 4,
     rank2stars = gameCardsQTY + 10,
     rank1stars = gameCardsQTY + 18,
-    timer, gameStarted;
+    timer, gameStarted, currentTime;
 
 // Start the Game!
 function startGame() {
@@ -73,12 +72,12 @@ function setRating(moves) {
 };
 
 // End Game using SweetAlert2
-function endGame(moves, score) {
+function endGame(moves, score, currentTime) {
   swal({
     allowEscapeKey: false,
     allowOutsideClick: false,
     title: 'Congratulations! Winner!',
-    text: 'With ' + moves + ' Moves and ' + score + ' Stars.\n Woooooo!',
+    text: 'With ' + moves + ' Moves and ' + score + ' Stars and Time taken: ' + currentTime + '.\n',
     type: 'success',
     confirmButtonColor: '#02ccba',
     confirmButtonText: 'Play again!'
@@ -131,7 +130,7 @@ const gameTimer = () => {
         seconds = "0" + seconds;
       }
 
-      let currentTime = minutes + ':' + seconds;
+      currentTime = minutes + ':' + seconds;
 
       // Update clock on game screen and modal
       $(".clock").text(currentTime);
@@ -140,7 +139,7 @@ const gameTimer = () => {
   };
 
 // Card Event Listener that waits for clicks
-var cardEventListener = function() {
+let cardEventListener = function() {
     // Card flip
 
     // Find class card without class match and open. Listen for click
@@ -152,31 +151,29 @@ var cardEventListener = function() {
             // start timer!
             gameTimer();
             gameStarted = true;
-        }    
+        }
 
-        var $this = $(this),
+        let $this = $(this),
             card = $this.html();
-        //alert(card);
-        $this.addClass('open show');
-        opened.push(card);
 
+        $this.addClass('open show no-clicks');
+        opened.push(card);
+        
         // Compare with opened card
         if (opened.length > 1) {
             if (card === opened[0]) {
-              $deck.find('.open').addClass('match animated infinite rubberBand');
-              //$deck.find('.open').addClass('match');
+              $deck.find('.open').addClass('match no-clicks animated infinite rubberBand');
               setTimeout(function() {
                 $deck.find('.match').removeClass('open show animated infinite rubberBand');
-                //$deck.find('.match').removeClass('open show');
               }, delay);
               match++;
             } else {
-              $deck.find('.open').addClass('notmatch animated infinite wobble');
+              $deck.find('.open').addClass('no-clicks notmatch animated infinite wobble');
               setTimeout(function() {
                 $deck.find('.open').removeClass('animated infinite wobble');
               }, delay / 1.5);
               setTimeout(function() {
-                $deck.find('.open').removeClass('open show notmatch animated infinite wobble');
+                $deck.find('.open').removeClass('open show no-clicks notmatch animated infinite wobble');
               }, delay);
             }
             opened = [];
@@ -184,17 +181,19 @@ var cardEventListener = function() {
             setRating(moves);
             $moveNum.html(moves);
         }
+
         // End Game if match all cards
         if (gameCardsQTY === match) {
             setRating(moves);
             var score = setRating(moves).score;
             setTimeout(function() {
-              endGame(moves, score);
+                clearInterval(timer);
+                endGame(moves, score, currentTime);
             }, 500);
         }
+        
     });
 
 };
-
 // Start the game!
 startGame();
